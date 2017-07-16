@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/hf-common/css/home-header.css}" href="/hf-common/css/home-header.css">
+    <!--<script type="text/javascript" th:src="@{/hf-common/js/hf-header.js}" src="../resource/head/js/hf-header.js"></script>-->
+</head>
+<body>
+<div class="select-sku-wrap" style="display: none">
+    <div class="hf-popup-win " id="select-wraper"></div>
+    <div class="select-sku">
+        <script id="sku-list" type="text/html">
+            <ul>
+                <%for(var i=0;i<resInfo.length;i++){%>
+                <li>
+                    <div><%=$imports.limitHz(resInfo[i].name,5)%></div>
+                    <span class="arrows">
+                        <!--箭头-->
+                      <img src="http://www.duia.com/resources/common/images/common/subhead-jt.png"/>
+                      </span>
+                    <p>
+                        <%for( var j=0;j<resInfo[i].skus.length;j++){%>
+                        <a href="/course/list/show?skuId=<%=resInfo[i].skus[j].id%>&categoryId=<%=resInfo[i].id%>" data-skuId="<%=resInfo[i].skus[j].id%>"><%=resInfo[i].skus[j].name%></a>
+                        <%}%>
+                    </p>
+                </li>
+                <%}%>
+            </ul>
+        </script>
+    </div>
+</div>
+
+<!--顶部工具栏start-->
+<div class="shortcut" id="shortcut">
+    <div class="w clearfix">
+        <!--左侧start-->
+        <ul class="fl shortcut-left">
+            <li class="logo fl">
+                <a href="#">好分网</a>
+            </li>
+            <li class="fl shortcut-jump shortcut-jump-active js-shortcut-jump" id="home-header-index">
+                <a href="#">首页</a>
+                <i class="white-line"></i>
+            </li>
+            <li class="fl shortcut-jump js-shortcut-jump" id="home-header-course">
+                <a href="#">课程</a>
+                <i class="white-line"></i>
+            </li>
+            <!--<li class="fl shortcut-jump js-shortcut-jump">-->
+                <!--<a href="#">下载APP</a>-->
+                <!--<i class="white-line"></i>-->
+            <!--</li>-->
+            <li class="fl shortcut-jump js-shortcut-jump" id="home-header-studyCenter">
+                <a href="#">学习中心</a>
+                <i class="white-line"></i>
+            </li>
+        </ul>
+        <!--左侧end-->
+        <!--右侧start-->
+        <ul class="fr" id="home-header-changeUl">
+            <!--注册登录start-->
+            <!--<li class="fl login-css" id="login">登录</li>-->
+            <!--<li class="fl spacer"></li>-->
+            <!--<li class="fl register-css" id="register">注册</li>-->
+            <!--注册登录end-->
+            <!--用户头像和用户名start-->
+            <!--<li class="fl userDp">-->
+            <!--<img src="../resource/head/images/user-icon.png" alt="">-->
+            <!--</li>-->
+            <!--<li class="fl userName">我是超人</li>-->
+            <!--用户头像和用户名end-->
+            <!--滑过显示个人管理-->
+            <div class="homeHeader-tab-div" id="homeHeader-tab-div">
+                <div style="height: 10px;"></div>
+                <p class="homeHeader-message-center" id="homeHeader-message-center">消息中心<span class="little-red-dot js-xhd" style="display: none;"><img src="/hf-common/images/little-red-dot.png" alt=""></span></p>
+                <p id="home-header-personInfo">个人资料</p>
+                <p id="home-header-helpCenter">帮助中心</p>
+                <div style="width: 156px;height: 1px;margin-left: 10px;background-color:#EEEEEE;"></div>
+                <p id="homeHeader-leave">退出</p>
+            </div>
+        </ul>
+        <!--右侧end-->
+    </div>
+    <!--隐藏域-->
+    <span th:if="${session.SESSION_USER}" style="display:none;" id="homeHeader-session-nickName" th:text="${session.SESSION_USER.nickName}"></span>
+    <span th:if="${session.SESSION_USER}" style="display:none;" id="homeHeader-session-picture" th:text="${session.SESSION_USER.picture}"></span>
+    <span th:if="${session.SESSION_USER}" style="display:none;" id="homeHeader-session-userId" th:text="${session.SESSION_USER.id}"></span>
+    <span th:if="${session.SESSION_USER}" style="display:none;" id="homeHeader-session-mobile" th:text="${session.SESSION_USER.mobile}"></span>
+    <span th:if="${session.IS_VIP}" style="display:none;" id="homeHeader-session-isVip" th:text="${session.IS_VIP}"></span>
+</div>
+
+<!--顶部工具栏end-->
+</body>
+</html>

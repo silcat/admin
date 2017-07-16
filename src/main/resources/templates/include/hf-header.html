@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/hf-common/css/hf-header.css}" href="../resource/head/css/hf-header.css">
+
+</head>
+<body>
+<!--登录窗口-->
+<div th:insert="popup/login" id="popup-login-div" style="display:none;"></div>
+<!--注册窗口-->
+<div th:insert="popup/register" id="popup-register-div" style="display:none;"></div>
+<!--忘记密码-->
+<div th:insert="popup/foget-password" id="foget-password-div" style="display:none;"></div>
+<!--重置密码-->
+<div th:insert="popup/reset-password" id="reset-password-div" style="display:none;"></div>
+<div class="select-sku-wrap" style="display: none">
+    <div class="hf-popup-win " id="select-wraper"></div>
+    <div class="select-sku" ></div>
+</div>
+    <!--顶部工具栏start-->
+    <div class="shortcut" id="shortcut">
+        <div class="w clearfix">
+                <!--左侧start-->
+                <ul class="fl shortcut-left">
+                    <li class="logo fl">
+                        <a href="/">好分网</a>
+                    </li>
+                    <li class="slideDown" style="display: none;">
+                        <div class="shortcut-sku-name clearfix">
+                            <div th:text="${skuName}" class="fl shortcut-sku-name-text " ></div>
+                            <img class="sj-bottom fl" th:src="@{/images/sj-bottom.png}" src="../resource/head/images/sj-bottom.png" alt="">
+                        </div>
+                        <!--滑动下拉的sku列表start-->
+                        <div class="accountant" id="accountant" >
+                            <script id="sku-list" type="text/html">
+                                <ul>
+                                    <%for(var i=0;i<resInfo.length;i++){%>
+                                    <li>
+                                        <div><%=resInfo[i].name%></div>
+                                        <span class="arrows">
+                        <!--箭头-->
+                      <img src="http://www.duia.com/resources/common/images/common/subhead-jt.png"/>
+                      </span>
+                                        <p>
+                                            <%for( var j=0;j<resInfo[i].skus.length;j++){%>
+                                            <a href="javascript:;" data-skuId="<%=resInfo[i].skus[j].id%>" data-categoryId="<%=resInfo[i].id%>" class="sku-select"><%=resInfo[i].skus[j].name%></a>
+                                            <%}%>
+                                        </p>
+                                    </li>
+                                    <%}%>
+                                </ul>
+                            </script>
+                        </div>
+                        <!--滑动下拉的sku列表end-->
+                    </li>
+                    <li class="fl shortcut-jump js-shortcut-jump" id="hf-header-index">
+                        <a href="#">首页</a>
+                        <i class="orange-line"></i>
+                    </li>
+                    <li class="fl shortcut-jump js-shortcut-jump" id="hf-header-course">
+                        <a href="#">课程</a>
+                        <i class="orange-line"></i>
+                    </li>
+                    <!--<li class="fl shortcut-jump js-shortcut-jump">-->
+                        <!--<a href="#">下载APP</a>-->
+                        <!--<i class="orange-line"></i>-->
+                    <!--</li>-->
+                    <li class="fl shortcut-jump js-shortcut-jump" id="hf-header-studyCenter">
+                        <a href="#">学习中心</a>
+                        <i class="orange-line"></i>
+                    </li>
+                </ul>
+                <!--左侧end-->
+                <!--右侧start-->
+                <ul class="fr" id="hf-header-changeUl">
+                    <!--注册登录start-->
+                    <!--<div class="login-before">-->
+                        <!--<li class="fl login-css">登录</li>-->
+                        <!--<li class="fl spacer"></li>-->
+                        <!--<li class="fl register-css">注册</li>-->
+                    <!--</div>-->
+                    <!--<div class="login-after">-->
+                        <!--&lt;!&ndash;注册登录end&ndash;&gt;-->
+                        <!--&lt;!&ndash;用户头像和用户名start&ndash;&gt;-->
+                        <!--<li class="fl userDp">-->
+                             <!--<img src="../resource/head/images/user-icon.png" alt="" th:src="@{${session.SESSION_USER.picture}}">-->
+                        <!--</li>-->
+                        <!--<li class="fl userName" th:text="${session.SESSION_USER.nickName}"></li>-->
+                                                        <!--&lt;!&ndash;用户头像和用户名end&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--滑过显示个人管理-->
+                    <div class="personal-tab-div" id="personal-tab-div">
+                         <div style="height: 10px;"></div>
+                         <p class="topTab-message-center" id="hf-header-messageCenter">消息中心<span class="little-red-dot js-xhd"><img src="/hf-common/images/little-red-dot.png" alt=""></span></p>
+                         <p id="hf-header-personInfo">个人资料</p>
+                         <p id="hf-header-helpCenter">帮助中心</p>
+                         <div style="width: 156px;height: 1px;margin-left: 10px;background-color:#EEEEEE;"></div>
+                         <p id="leave">退出</p>
+                    </div>
+                </ul>
+                <!--右侧end-->
+            </div>
+        <!--隐藏域-->
+        <span th:if="${session.SESSION_USER}" style="display:none;" id="header-session-nickName" th:text="${session.SESSION_USER.nickName}"></span>
+        <span th:if="${session.SESSION_USER}" style="display:none;" id="header-session-picture" th:text="${session.SESSION_USER.picture}"></span>
+        <span th:if="${session.SESSION_USER}" style="display:none;" id="header-session-userId" th:text="${session.SESSION_USER.id}"></span>
+        <span th:if="${session.SESSION_USER}" style="display:none;" id="header-session-mobile" th:text="${session.SESSION_USER.mobile}"></span>
+        <span th:if="${session.IS_VIP}" style="display:none;" id="hfHeader-session-isVip" th:text="${session.IS_VIP}"></span>
+    </div>
+
+</body>
+</html>
