@@ -1,8 +1,8 @@
 package com.demo.controller;
 import com.demo.core.Result;
 import com.demo.core.ResultGenerator;
-import com.demo.orm.model.Student;
-import com.demo.service.StudentService;
+import com.demo.orm.model.Course;
+import com.demo.service.CourseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,42 +13,42 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2017/07/16.
+* Created by CodeGenerator on 2017/10/25.
 */
 @RestController
-@RequestMapping("/student")
-public class StudentController {
+@RequestMapping("/course")
+public class CourseController {
     @Resource
-    private StudentService studentService;
+    private CourseService courseService;
 
     @PostMapping("/add")
-    public Result add(Student student) {
-        studentService.save(student);
+    public Result add(Course course) {
+        courseService.save(course);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
     public Result delete(Integer id) {
-        studentService.deleteById(id);
+        courseService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(Student student) {
-        studentService.update(student);
+    public Result update(Course course) {
+        courseService.update(course);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
     public Result detail(Integer id) {
-        Student student = studentService.findById(id);
-        return ResultGenerator.genSuccessResult(student);
+        Course course = courseService.findById(id);
+        return ResultGenerator.genSuccessResult(course);
     }
 
     @PostMapping("/list")
     public Result list(Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        List<Student> list = studentService.findAll();
+        List<Course> list = courseService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
