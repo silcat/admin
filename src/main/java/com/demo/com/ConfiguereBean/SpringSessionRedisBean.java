@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by admin on 2017/10/25.
  */
-@ConfigurationProperties(prefix = "spring.mybatis")
+@ConfigurationProperties(prefix = "spring.session.redis")
 @Component
-public class MybatisRedisBean extends RedisBean {
+public class SpringSessionRedisBean extends RedisBean {
 }
