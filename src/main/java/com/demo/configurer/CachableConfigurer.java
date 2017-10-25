@@ -1,12 +1,14 @@
 package com.demo.configurer;
 
 import com.demo.com.ConfiguereBean.CommonRedisBean;
+import com.demo.com.ConfiguereBean.MybatisRedisBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.DefaultRedisCachePrefix;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 import javax.annotation.Resource;
 
@@ -18,6 +20,8 @@ import javax.annotation.Resource;
 public class CachableConfigurer extends RedisConfigurer{
     @Resource
     private CommonRedisBean commonRedisBean;
+    @Resource
+    private MybatisRedisBean mybatisRedisBean;
     @Bean
     public CacheManager cacheManager( CommonRedisBean commonRedisBean) {
         // 创建缓存管理器
@@ -26,5 +30,9 @@ public class CachableConfigurer extends RedisConfigurer{
         cacheManager.setUsePrefix(true);
         cacheManager.setCachePrefix(new DefaultRedisCachePrefix(":"));
         return cacheManager;
+    }
+    @Bean(name = "mybatisRedisConnection")
+    public RedisConnectionFactory createRedisConnettion(){
+        return  createFactory(mybatisRedisBean);
     }
 }
